@@ -1,0 +1,23 @@
+fun same_string(s1: string, s2: string) =
+    s1 = s2 
+
+fun all_except_option(s: string, b:string list) = 
+    case b of
+	[] => NONE
+     | x::x' => if same_string(s,x)
+		then SOME  x'
+		else 
+		    case all_except_option(s, x') of
+			NONE=>NONE
+		     | SOME y => SOME (x::y) 
+		   
+		 
+
+fun get_substitutions1(s: string, lst: string(list(list))) =
+
+    case lst of
+	[] =>[]
+     | x::xs' => case all_except_option(s,x) of
+		     NONE => get_substitutions1(s,xs')
+		  | SOME y => y @ get_substitutions(s, xs')
+ 
